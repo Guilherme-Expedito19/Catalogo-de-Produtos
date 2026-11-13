@@ -1,0 +1,212 @@
+/* ===== Base ===== */
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --fundo: #050505;
+  --superficie: #0e0e0e;
+  --superficie-clara: #171717;
+  --texto: #f5f0f0;
+  --texto-suave: #b9b0b0;
+  --vermelho: #d40e0e;
+  --vermelho-botao: #c01515;
+  --vermelho-borda: #eb0b0b;
+  --vermelho-preco: #df0c0c;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  line-height: 1.5;
+  background-color: var(--fundo);
+  color: var(--texto);
+}
+
+/* ===== Cabeçalho ===== */
+header {
+  background-color: var(--vermelho);
+  color: rgb(233, 224, 224);
+  text-align: center;
+  padding: 40px 20px 32px;
+  border-bottom: 4px solid #8f0909;
+
+  background-image: url(Logo/Logo.jpg);
+  background-repeat: no-repeat;
+  background-position: 24px center;
+  background-size: 140px auto;
+}
+
+header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+header p {
+  margin: 6px 0 0;
+  font-size: 1.05rem;
+  opacity: 0.85;
+}
+
+/* ===== Conteúdo ===== */
+main {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 15px;
+}
+
+.catalogo h2 {
+  text-align: center;
+  font-size: 1.7rem;
+  margin: 0;
+}
+
+.catalogo h2::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin: 12px auto 0;
+  background: var(--vermelho);
+  border-radius: 2px;
+}
+
+#lista-produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+  align-items: start; /* o card que abre não estica os vizinhos */
+}
+
+/* ===== Card ===== */
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--superficie);
+  border: 1px solid rgba(235, 11, 11, 0.55);
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+  transition: transform 0.25s ease, border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.card:hover,
+.card:focus-within {
+  transform: translateY(-4px);
+  border-color: var(--vermelho-borda);
+  box-shadow: 0 10px 28px rgba(212, 14, 14, 0.22);
+}
+
+.card img {
+  width: 100%;
+  height: 170px;
+  object-fit: contain;
+  padding: 10px;
+  background: var(--superficie-clara);
+  border-radius: 8px;
+}
+
+.card h3 {
+  margin: 16px 0 4px;
+  font-size: 1.25rem;
+}
+
+.preco {
+  margin: 0 0 16px;
+  color: var(--vermelho-preco);
+  font-size: 1.35rem;
+  font-weight: bold;
+}
+
+/* ===== Botão ===== */
+.card button {
+  width: 100%;
+  padding: 12px 15px;
+  background: var(--vermelho-botao);
+  color: rgb(236, 233, 233);
+  font: inherit;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.card button:hover {
+  background: #000000;
+  color: var(--vermelho);
+  border-color: var(--vermelho);
+}
+
+.card button:focus-visible {
+  outline: 3px solid var(--texto);
+  outline-offset: 2px;
+}
+
+/* ===== Detalhes (abre e fecha com animação) ===== */
+.detalhes {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.4s ease, opacity 0.4s ease;
+}
+
+.detalhes.aberto {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.detalhes-conteudo {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.detalhes-conteudo p {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 0.95rem;
+  color: var(--texto-suave);
+  background: var(--superficie-clara);
+  border-left: 3px solid var(--vermelho);
+  border-radius: 0 6px 6px 0;
+}
+
+/* ===== Rodapé ===== */
+footer {
+  text-align: center;
+  padding: 24px 20px;
+  background: #0b0b0b;
+  color: var(--texto-suave);
+  border-top: 1px solid rgba(235, 11, 11, 0.35);
+}
+
+/* ===== Acessibilidade ===== */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .detalhes,
+  .card button {
+    transition: none;
+  }
+
+  .card:hover,
+  .card:focus-within {
+    transform: none;
+  }
+}
+
+/* ===== Celular ===== */
+@media (max-width: 480px) {
+  main {
+    margin: 24px auto;
+    padding: 10px;
+  }
+
+  .card img {
+    height: 150px;
+  }
+}
